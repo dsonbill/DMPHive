@@ -18,7 +18,7 @@ def generate_default_config():
         with open(CONFIGFILE, 'w') as file:
             CONFIG.write(file)
     except Exception as inst:
-        print('Encountered exception while trying to generate configuration file!')
+        print('Encountered exception while trying to write configuration file!')
 
 
 try:
