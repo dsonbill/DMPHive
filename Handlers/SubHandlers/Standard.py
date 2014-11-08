@@ -12,15 +12,19 @@ def HIVERPC(json_msg):
         rpcjson = json.loads(json_msg)
         rpcargs = json.loads(rpcjson['args'])
 
-        HiveLog.log('HIVERPC', 'Received RPC request  [ {} ]  with args  [ {} ]'.format(rpcjson['cmd'], rpcjson['args']), 'DEBUG')
+        HiveLog.debug('HIVERPC', 'Received RPC Request  [ {} ]  With Args  [ {} ]', rpcjson['cmd'], rpcjson['args'])
 
         if rpcjson['cmd'] in HiveRPC.RPC_REGISTER:
             try:
                 HiveRPC.RPC_REGISTER[rpcjson['cmd']](**rpcargs)
             except Exception as inst:
-                HiveLog.log('HIVERPC', 'Exception  [ {} ]  occurred while calling function  [ {} ] with JSON  [ {} ]'.format(type(inst), rpcjson['cmd'], json_msg), 'ERROR')
+                HiveLog.error('HIVERPC',
+                              'Exception  [ {} ]  Calling RPC Handler  [ {} ] With JSON  [ {} ]',
+                              type(inst), rpcjson['cmd'], json_msg)
         else:
-            HiveLog.log('HIVERPC', 'Could not handle request  [ {} ]  with args  [ {} ]'.format(rpcjson['cmd'], rpcargs), 'ERROR')
+            HiveLog.error('HIVERPC',
+                          'Could Not Handle RPC Request  [ {} ]  With Args  [ {} ]',
+                          rpcjson['cmd'], rpcargs)
 
     except Exception as inst:
-        HiveLog.log('HIVERPC', 'Exception  [ {} ]  occurred while decoding JSON  [ {} ]'.format(type(inst), json_msg), 'ERROR')
+        HiveLog.error('HIVERPC', 'Exception  [ {} ]  Decoding JSON  [ {} ]', type(inst), json_msg)

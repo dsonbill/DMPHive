@@ -7,6 +7,7 @@ import HiveLog
 MAIN_LOOP = asyncio.get_event_loop()
 SERVICE_CHANNELS = []
 SERVICE_CHANNEL_REGISTER = {}
+LOGTAG = 'HIVELOOP'
 
 
 @asyncio.coroutine
@@ -25,20 +26,22 @@ def hive_subscriber():
 
     while True:
         reply = yield from subscriber.next_published()
-        HiveLog.log('REDIS', 'Received  [ {} ]  on channel  [ {} ]'.format(reply.value, reply.channel), 'LOG')
+        HiveLog.log(LOGTAG, 'Received  [ {} ]  On Channel  [ {} ]', reply.value, reply.channel)
         try:
             SERVICE_CHANNEL_REGISTER[reply.channel](reply.value)
         except Exception as inst:
-            HiveLog.log('REDIS', 'Exception  [ {} ]  occurred while trying to handle message  [ {} ]  on channel  [ {} ]'.format(type(inst), reply.value, reply.channel), 'ERROR')
+            HiveLog.error(LOGTAG,
+                          'Exception  [ {} ]  Trying To Handle Message  [ {} ]  On Channel  [ {} ]',
+                          type(inst), reply.value, reply.channel)
 
 
 def ChannelHandler(func):
     def metafunc(*args, **kwargs):
-        HiveLog.log('REDIS', "Called function  [ {} ]  with args  [ {}, {} ]".format(func.__name__, args, kwargs), 'DEBUG')
+        HiveLog.debug(LOGTAG, "Called ChannelHandler  [ {} ]  With Args  [ {}, {} ]", func.__name__, args, kwargs)
         func(*args, **kwargs)
     SERVICE_CHANNEL_REGISTER[func.__name__] = metafunc
     SERVICE_CHANNELS.append(func.__name__)
-    HiveLog.log('REDIS', 'Registered channel handler  [ {} ]'.format(func.__name__), 'DEBUG')
+    HiveLog.debug(LOGTAG, 'Registered Channel Handler  [ {} ]', func.__name__)
 
 
 asyncio.async(hive_subscriber(), loop=MAIN_LOOP)
