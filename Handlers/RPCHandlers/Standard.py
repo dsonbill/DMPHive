@@ -1,7 +1,6 @@
-__author__ = 'William C. Donaldson'
+from HiveLib import HiveLoop, HiveRPC
 
-import HiveRPC
-import HiveLoop
+__author__ = 'William C. Donaldson'
 
 
 @HiveRPC.RPCHandler

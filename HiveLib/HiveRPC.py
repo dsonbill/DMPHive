@@ -1,6 +1,6 @@
-__author__ = 'William C. Donaldson'
+from HiveLib import HiveLog
 
-import HiveLog
+__author__ = 'William C. Donaldson'
 
 RPC_REGISTER = {}
 LOGTAG = 'HIVERPC'

@@ -1,9 +1,7 @@
-__author__ = 'William C. Donaldson'
-
-import HiveLog
-import HiveLoop
-import HiveRPC
+from HiveLib import HiveLoop, HiveLog, HiveRPC
 import json
+
+__author__ = 'William C. Donaldson'
 
 
 @HiveLoop.ChannelHandler

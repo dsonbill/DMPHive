@@ -1,6 +1,7 @@
+from HiveLib import HiveConf
+
 __author__ = 'William C. Donaldson'
 
-Debugging = True
 Padding = 2
 
 LogLevels = []
@@ -19,14 +20,12 @@ def log(tag, content, *formatargs, level='LOG'):
     if level not in LogLevels:
         LogLevels.append(level)
         calculate_padding(Padding)
-    if level == 'DEBUG' and Debugging:
-        print(LogTemplate.format(level, ' ' * (LogPadding[1] - len(level)), tag, content.format(*formatargs)))
-    elif level != 'DEBUG':
-        print(LogTemplate.format(level, ' ' * (LogPadding[1] - len(level)), tag, content.format(*formatargs)))
+    print(LogTemplate.format(level, ' ' * (LogPadding[1] - len(level)), tag, content.format(*formatargs)))
 
 
 def debug(tag, text, *formatargs):
-    log(tag, text, *formatargs, level='DEBUG')
+    if HiveConf.CONFIG['LOGGING']['Debugging'] == 'True':
+        log(tag, text, *formatargs, level='DEBUG')
 
 
 def error(tag, text, *formatargs):

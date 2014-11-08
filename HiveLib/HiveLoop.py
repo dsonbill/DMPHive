@@ -1,8 +1,8 @@
-__author__ = 'William C. Donaldson'
-
+from HiveLib import HiveLog
 import asyncio
 import asyncio_redis
-import HiveLog
+
+__author__ = 'William C. Donaldson'
 
 MAIN_LOOP = asyncio.get_event_loop()
 SERVICE_CHANNELS = []
