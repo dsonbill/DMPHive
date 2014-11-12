@@ -3,11 +3,9 @@ from HiveLib import HiveLoop, HiveRPC
 __author__ = 'William C. Donaldson'
 
 
-@HiveRPC.RPCHandler
-def testfunc(**kwargs):
-    print(kwargs['foo'])
+class StateControl():
 
-
-@HiveRPC.RPCHandler
-def shutdown(**kwargs):
-    HiveLoop.MAIN_LOOP.stop()
+    @staticmethod
+    def shutdown():
+        HiveLoop.MAIN_LOOP.stop()
+        return 'foobar' # Return value will not make it, on account of the loop stopping.

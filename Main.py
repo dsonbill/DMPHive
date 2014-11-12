@@ -9,8 +9,7 @@ LOGTAG = 'MAIN'
 if __name__ == '__main__':
 
     HiveLog.log(LOGTAG, 'Beginning Handler Import')
-    HandleImporter.handler_import(HiveConf.RPCDIR, 'RPC')
-    HandleImporter.handler_import(HiveConf.SUBDIR, 'Subscription')
+    HandleImporter.handler_import(HiveConf.RPCDIR)
     HiveLog.log(LOGTAG, 'Finished Handler Import')
 
     HiveLog.log(LOGTAG, 'Beginning Main Loop')
