@@ -1,6 +1,5 @@
-from HiveLib import HiveConf
+import clientconf
 
-__author__ = 'William C. Donaldson'
 
 Padding = 2
 
@@ -24,7 +23,7 @@ def log(tag, content, *formatargs, level='LOG'):
 
 
 def debug(tag, text, *formatargs):
-    if HiveConf.CONFIG['LOGGING']['Debugging'] == 'True':
+    if clientconf.CONFIG['LOGGING']['Debugging'] == 'True':
         log(tag, text, *formatargs, level='DEBUG')
 
 
