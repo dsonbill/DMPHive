@@ -23,6 +23,9 @@ class NetworkMessage():
 
         # Read the message payload and send to stream
         if self.msg_length > 0:
+            # Cut off the accidental double prefix length
+            self.msg_length -= 4
+            yield from stream.read(4)
             message_data = yield from stream.read(self.msg_length)
             self.message_stream.feed_data(message_data)
 
