@@ -41,8 +41,8 @@ class RSA():
         modulus_int = bytes_to_int(base64.standard_b64decode(modulus_xml.text))
         modulus_bytes = base64.standard_b64decode(modulus_xml.text)
         modulus_bytes_tested = bytes_from_int(bytes_to_int(modulus_bytes))
-        if modulus_bytes == modulus_bytes_tested:
-            print("Everything is good")
+        if modulus_bytes != modulus_bytes_tested:
+            raise Exception('A modulus mismatch was encountered with xmlrsa. Please check your rsa key modulus!')
 
         exponent_int = bytes_to_int(base64.standard_b64decode(exponent_xml.text))
         d_int = bytes_to_int(base64.standard_b64decode(d_xml.text))
@@ -70,8 +70,8 @@ class RSA():
         modulus_xml = ET.SubElement(rsa_key_value_xml, 'Modulus')
         exponent_xml = ET.SubElement(rsa_key_value_xml, 'Exponent')
 
-        modulus_xml.text = base64.standard_b64encode(bytes_from_int(private_key.n)).decode("utf-8")
-        exponent_xml.text = base64.standard_b64encode(bytes_from_int(private_key.e)).decode("utf-8")
+        modulus_xml.text = base64.standard_b64encode(bytes_from_int(private_key.n)).decode('utf-8')
+        exponent_xml.text = base64.standard_b64encode(bytes_from_int(private_key.e)).decode('utf-8')
 
         pubkey = ET.tostring(rsa_key_value_xml).decode('utf-8')
 
@@ -82,9 +82,9 @@ class RSA():
         dq_xml = ET.SubElement(rsa_key_value_xml, 'DQ')
         inverseq_xml = ET.SubElement(rsa_key_value_xml, 'InverseQ')
 
-        d_xml.text = base64.standard_b64encode(bytes_from_int(private_key.d)).decode("utf-8")
-        p_xml.text = base64.standard_b64encode(bytes_from_int(private_key.p)).decode("utf-8")
-        q_xml.text = base64.standard_b64encode(bytes_from_int(private_key.q)).decode("utf-8")
+        d_xml.text = base64.standard_b64encode(bytes_from_int(private_key.d)).decode('utf-8')
+        p_xml.text = base64.standard_b64encode(bytes_from_int(private_key.p)).decode('utf-8')
+        q_xml.text = base64.standard_b64encode(bytes_from_int(private_key.q)).decode('utf-8')
         dp_xml.text = base64.standard_b64encode(bytes_from_int(private_key.exp1)).decode('utf-8')
         dq_xml.text = base64.standard_b64encode(bytes_from_int(private_key.exp2)).decode('utf-8')
         inverseq_xml.text = base64.standard_b64encode(bytes_from_int(private_key.coef)).decode('utf-8')

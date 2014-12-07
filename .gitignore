@@ -1,5 +1,4 @@
 __pycache__/
 .idea/
-DMPHive.cfg
-PrivKey.xml
-client.cfg
+Data/
+playground.py

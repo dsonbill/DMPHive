@@ -1,11 +1,16 @@
 from enum import Enum
-HEART_BEAT_INTERVAL = 5000
-INITIAL_CONNECTION_TIMEOUT = 5000
-CONNECTION_TIMEOUT = 20000
-MAX_MESSAGE_SIZE = 5242880
-SPLIT_MESSAGE_LENGTH = 8096
-PROTOCOL_VERSION = 30
-PROGRAM_VERSION = "Custom"
+
+
+class Protocol():
+    def __init__(self):
+        self.HEART_BEAT_INTERVAL = 5000
+        self.INITIAL_CONNECTION_TIMEOUT = 5000
+        self.CONNECTION_TIMEOUT = 20000
+        self.MAX_MESSAGE_SIZE = 5242880
+        self.SPLIT_MESSAGE_LENGTH = 8096
+        self.PROTOCOL_VERSION = 31
+        self.PROGRAM_VERSION = "Custom"
+
 
 class CraftType(Enum):
     VAB = 0
@@ -189,14 +194,5 @@ class HandshakeReply(Enum):
     NOT_WHITELISTED = 7
     INVALID_PLAYERNAME = 98
     MALFORMED_HANDSHAKE = 99
-
-
-def handler(func, message_namespace):
-    func.message_namespace = message_namespace + '.'
-    return func
-
-
-def server_network_message(func):
-    return handler(func, 'ServerMessageType')
 
 
